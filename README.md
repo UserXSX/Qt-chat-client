@@ -20,13 +20,17 @@ Qt聊天室的客户端
 
 ### 注册
 
-客户端发送形如`SignUp [uid]?[password]`的注册请求给服务器，服务器返回注册结果，形如`Pass`（注册成功）和`UidExist`（账号已存在）。
+客户端发送形如`SignUp [uid]?[password]?[user_name]`的注册请求给服务器，服务器返回注册结果，形如`Pass`（注册成功）和`UidExist`（账号已存在）。
 
 注册成功后，服务器将**User表**中该用户的`online`字段值设置为`0`。
 
 ### 修改密码
 
 客户端发送形如`ChangePwd [uid]?[old password]?[new password]`的修改密码请求给服务器，服务器返回修改结果，形如`Pass`（修改成功）、`NoUid`（账号不存在）和 `WrongPwd`（原密码错误）。
+
+### 登出
+
+客户端发送形如`LogOut [uid]`的登出请求给服务器，服务器断开连接，并将**User表**中该用户的`online`字段值设置为`0`。
 
 ### 显示聊天室中的在线人数
 
