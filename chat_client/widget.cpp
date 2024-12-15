@@ -13,12 +13,8 @@ Widget::Widget(QWidget *parent)
 
     // 连接准备
     clientSocket = new QTcpSocket(this);
-    serverAddr = new QString("159.75.88.12");
-    serverPort = new quint16(8888);
-
-    // 连接信号和槽
-    connect(clientSocket, &QTcpSocket::readyRead, this, &Widget::readMessage);
-    connect(clientSocket, &QTcpSocket::disconnected, this, &Widget::disconnectSlot);
+    serverAddr = new QString("xxx.xxx.xxx.xxx");  // 填写服务器 IP 地址
+    serverPort = new quint16(8080);  // 填写服务器监听的端口号
 }
 
 Widget::~Widget()
@@ -34,6 +30,11 @@ Widget::~Widget()
  */
 void Widget::on_loginButton_clicked()
 {
+    // ==>测试跳转聊天室窗口效果
+    enter_chatroom();
+    return;
+    // ==>测试代码结束
+
     // 检查账号是否为空
     QString account = ui->inputAccount->text();
     if (account.isEmpty()) {
@@ -71,10 +72,10 @@ void Widget::on_loginButton_clicked()
             // 6.处理响应
             QString res_str = QString::fromUtf8(response);
             if (res_str == "Pass") {  // 登录成功
-                // 登录成功，跳转至聊天室界面
                 QMessageBox::information(this, "登录成功", "登录成功");
-                // 跳转功能未实现...
                 clientSocket->close();
+                // 跳转至聊天室界面
+                enter_chatroom();
                 return;
 
             } else if (res_str == "NoUid") {  // 账号不存在
@@ -100,16 +101,8 @@ void Widget::on_loginButton_clicked()
     }
 }
 
-void Widget::readMessage() {
-
-}
-
-void Widget::disconnectSlot() {
-
-}
-
 /*
- * 点击前往注册按钮后的事件
+ * 点击前往注册按钮后，从登录界面跳转至注册界面
  */
 void Widget::on_signupButton_clicked()
 {
@@ -119,4 +112,16 @@ void Widget::on_signupButton_clicked()
                                     this);
     signUpForm->show();  // 显示注册窗口
     this->hide();  // 隐藏登录窗口
+}
+
+/*
+ * 从登录界面跳转至聊天室界面
+ */
+void Widget::enter_chatroom() {
+    ChatRoom *chatForm = new ChatRoom(clientSocket,
+                                      serverAddr,
+                                      serverPort,
+                                      this);
+    chatForm->show();
+    this->hide();
 }

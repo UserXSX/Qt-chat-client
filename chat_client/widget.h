@@ -7,6 +7,7 @@
 #include <QTcpSocket>
 #include <QString>
 #include "signup.h"
+#include "chatroom.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -22,10 +23,6 @@ public:
 
 private slots:
     void on_loginButton_clicked();
-    // 接收消息
-    void readMessage();
-    // 断开连接槽函数
-    void disconnectSlot();
 
     void on_signupButton_clicked();
 
@@ -34,5 +31,7 @@ private:
     QTcpSocket *clientSocket;
     QString *serverAddr;
     quint16 *serverPort;
+
+    void enter_chatroom();
 };
 #endif // WIDGET_H

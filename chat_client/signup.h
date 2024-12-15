@@ -25,6 +25,8 @@ public:
 private slots:
     void on_createButton_clicked();
 
+    void on_returnButton_clicked();
+
 private:
     Ui::SignUp *ui;
     QTcpSocket *clientSocket;

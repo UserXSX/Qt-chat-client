@@ -77,8 +77,8 @@ color: rgb(255, 255, 255);</string>
   <widget class="QCommandLinkButton" name="signupButton">
    <property name="geometry">
     <rect>
-     <x>520</x>
-     <y>450</y>
+     <x>560</x>
+     <y>440</y>
      <width>150</width>
      <height>50</height>
     </rect>

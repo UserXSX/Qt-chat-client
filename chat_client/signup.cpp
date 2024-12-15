@@ -17,8 +17,8 @@ SignUp::SignUp(QTcpSocket *socket, QString *addr, quint16 *port, QWidget *parent
     ui->inputPwd_1->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z0-9]{1,12}$")));
     ui->inputPwd_2->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z0-9]{1,12}$")));
 
-    qDebug() << *serverAddr << endl;
-    qDebug() << *serverPort << endl;
+//    qDebug() << *serverAddr << endl;
+//    qDebug() << *serverPort << endl;
 }
 
 SignUp::~SignUp()
@@ -102,4 +102,17 @@ void SignUp::on_createButton_clicked()
         return;
     }
 
+}
+
+/*
+ * 在注册界面点击登录按钮，返回至登录界面
+ */
+void SignUp::on_returnButton_clicked()
+{
+    QWidget *logInWindow = this->parentWidget();  // 获取父窗口
+    if (logInWindow) {
+        logInWindow->show();  // 显示登录窗口
+    }
+    this->close();  // 关闭注册窗口
+    delete this;  // 手动删除注册窗口以释放内存
 }
