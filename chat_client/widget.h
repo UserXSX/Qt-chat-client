@@ -32,6 +32,6 @@ private:
     QString *serverAddr;
     quint16 *serverPort;
 
-    void enter_chatroom();
+    void enter_chatRoom(QString uid, QString name);
 };
 #endif // WIDGET_H

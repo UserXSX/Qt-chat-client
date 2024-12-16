@@ -6,14 +6,14 @@ Widget::Widget(QWidget *parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
-    // 账号为 1~12 位数字
-    ui->inputAccount->setValidator(new QRegExpValidator(QRegExp("[0-9]{1,12}$")));
-    // 密码为 1~12 位字母和数字的组合
-    ui->inputPwd->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z0-9]{1,12}$")));
+    // 账号为 1~16 位数字
+    ui->inputAccount->setValidator(new QRegExpValidator(QRegExp("[0-9]{1,16}$")));
+    // 密码为 1~16 位字母和数字的组合
+    ui->inputPwd->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z0-9]{1,16}$")));
 
     // 连接准备
     clientSocket = new QTcpSocket(this);
-    serverAddr = new QString("xxx.xxx.xxx.xxx");  // 填写服务器 IP 地址
+    serverAddr = new QString("");  // 填写服务器 IP 地址
     serverPort = new quint16(8080);  // 填写服务器监听的端口号
 }
 
@@ -30,11 +30,6 @@ Widget::~Widget()
  */
 void Widget::on_loginButton_clicked()
 {
-    // ==>测试跳转聊天室窗口效果
-    enter_chatroom();
-    return;
-    // ==>测试代码结束
-
     // 检查账号是否为空
     QString account = ui->inputAccount->text();
     if (account.isEmpty()) {
@@ -48,15 +43,20 @@ void Widget::on_loginButton_clicked()
         return;
     }
 
+    QString loginRequest = "LogIn " + account + '?' + password;
+    qDebug() << loginRequest;
+
+    // ==>跳过服务器登录验证，测试跳转聊天室窗口效果
+//    enter_chatRoom(account, "unknown");
+//    return;
+    // ==>测试代码结束
+
     /*===============发送登录请求，处理响应===============*/
     // 1.建立 TCP 连接
     clientSocket->connectToHost(*serverAddr, *serverPort);
     if (clientSocket->waitForConnected(3000)) {  // 最多等待 3 秒
-        // 2.连接成功，准备登录请求
-        QString loginRequest = "LogIn " + account + '?' + password;
-
         if (clientSocket->isOpen() && clientSocket->isValid()) {  // 检查套接字是否连接且有效
-            // 3.发送账号和密码给服务器验证
+            // 2.发送账号和密码给服务器验证
             clientSocket->write(loginRequest.toUtf8());
         } else {  // 请求发送失败
             QMessageBox::critical(this, "请求发送失败", "请求未发送");
@@ -64,21 +64,14 @@ void Widget::on_loginButton_clicked()
             return;
         }
 
-        // 4.等待服务器的验证响应
+        // 3.等待服务器的验证响应
         if (clientSocket->waitForReadyRead(3000)) {  // 最多等待 3 秒
-            // 5.读取服务器响应
+            // 4.读取服务器响应
             QByteArray response = clientSocket->readAll();
 
-            // 6.处理响应
+            // 5.处理响应
             QString res_str = QString::fromUtf8(response);
-            if (res_str == "Pass") {  // 登录成功
-                QMessageBox::information(this, "登录成功", "登录成功");
-                clientSocket->close();
-                // 跳转至聊天室界面
-                enter_chatroom();
-                return;
-
-            } else if (res_str == "NoUid") {  // 账号不存在
+            if (res_str == "NoUid") {  // 账号不存在
                 QMessageBox::warning(this, "登录失败", "账号不存在");
                 clientSocket->close();
                 return;
@@ -86,6 +79,16 @@ void Widget::on_loginButton_clicked()
                 QMessageBox::warning(this, "登录失败", "账号密码不匹配");
                 clientSocket->close();
                 return;
+            } else {
+                QStringList splitList = res_str.split(" ");  // 分割字符串"Pass [user_name]"
+                if (splitList.size() == 2 && splitList[0] == "Pass"){
+                    // 登录成功
+                    QString user_name = splitList[1];
+                    clientSocket->close();
+                    // 跳转至聊天室界面
+                    enter_chatRoom(account, user_name);
+                    return;
+                }
             }
         } else {  // 响应超时
             QMessageBox::critical(this, "响应超时", "服务器未响应");
@@ -95,8 +98,6 @@ void Widget::on_loginButton_clicked()
 
     } else {  // 连接失败
         QMessageBox::critical(this, "连接失败", clientSocket->errorString());
-        // 关闭套接字，此时会发送 disconnected 信号
-        clientSocket->close();
         return;
     }
 }
@@ -117,11 +118,26 @@ void Widget::on_signupButton_clicked()
 /*
  * 从登录界面跳转至聊天室界面
  */
-void Widget::enter_chatroom() {
+void Widget::enter_chatRoom(QString uid, QString name) {
     ChatRoom *chatForm = new ChatRoom(clientSocket,
                                       serverAddr,
                                       serverPort,
+                                      uid,
+                                      name,
                                       this);
-    chatForm->show();
-    this->hide();
+
+    bool connected = chatForm->setUpConnection();
+
+    // ==>跳过聊天室的连接验证，测试聊天室的功能
+//    connected = true;
+    // ==>测试结束
+
+    if (connected) {
+        // 如果连接成功，就显示聊天室窗口，隐藏登录窗口
+        chatForm->show();
+        this->hide();
+    } else {
+        // 否则删除已经创建的聊天室窗口，即留在登录窗口
+        delete chatForm;
+    }
 }

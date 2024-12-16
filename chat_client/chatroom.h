@@ -6,6 +6,7 @@
 #include <QRegExpValidator>
 #include <QTcpSocket>
 #include <QString>
+#include <QDateTime>
 
 namespace Ui {
 class ChatRoom;
@@ -19,23 +20,35 @@ public:
     explicit ChatRoom(QTcpSocket *socket,
                       QString *addr,
                       quint16 *port,
+                      QString uid,
+                      QString name,
                       QWidget *parent = nullptr);
     ~ChatRoom();
+
+    bool setUpConnection();
 
 private slots:
     void on_logOutButton_clicked();
 
-    void on_pushButton_clicked();
+    void readMessage();
+
+    void disconnectSlot();
+
+    void on_sendButton_clicked();
 
 private:
     Ui::ChatRoom *ui;
     QTcpSocket *clientSocket;
     QString *serverAddr;
     quint16 *serverPort;
-
-    void setUpConnection();
+    QString myID;
+    QString myName;
 
     void back2login();
+
+    void closeEvent(QCloseEvent *event) override;
+
+    void show_user_send(QString message);
 };
 
 #endif // CHATROOM_H

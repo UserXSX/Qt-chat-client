@@ -16,17 +16,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    changpwd.cpp \
     chatroom.cpp \
     main.cpp \
     signup.cpp \
     widget.cpp
 
 HEADERS += \
+    changpwd.h \
     chatroom.h \
     signup.h \
     widget.h
 
 FORMS += \
+    changpwd.ui \
     chatroom.ui \
     signup.ui \
     widget.ui

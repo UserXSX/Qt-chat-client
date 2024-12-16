@@ -11,14 +11,13 @@ SignUp::SignUp(QTcpSocket *socket, QString *addr, quint16 *port, QWidget *parent
     ui->setupUi(this);
     setWindowFlag(Qt::Window);  // 设置为独立窗口
 
-    // 账号为 1~12 位数字
-    ui->inputAccount->setValidator(new QRegExpValidator(QRegExp("[0-9]{1,12}$")));
-    // 密码为 1~12 位字母和数字的组合
-    ui->inputPwd_1->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z0-9]{1,12}$")));
-    ui->inputPwd_2->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z0-9]{1,12}$")));
-
-//    qDebug() << *serverAddr << endl;
-//    qDebug() << *serverPort << endl;
+    // 账号为 1~16 位数字
+    ui->inputAccount->setValidator(new QRegExpValidator(QRegExp("[0-9]{1,16}$")));
+    // 密码为 1~16 位字母和数字的组合
+    ui->inputPwd_1->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z0-9]{1,16}$")));
+    ui->inputPwd_2->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z0-9]{1,16}$")));
+    // 用户名为 1~16 位字母和数字的组合
+    ui->inputName->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z0-9]{1,16}$")));
 }
 
 SignUp::~SignUp()
@@ -49,13 +48,20 @@ void SignUp::on_createButton_clicked()
         QMessageBox::warning(this, "注册失败", "两次输入的密码不一致！");
         return;
     }
+    // 检查用户名是否为空
+    QString user_name = ui->inputName->text();
+    if (user_name.isEmpty()) {
+        QMessageBox::warning(this, "注册失败", "用户名不能为空！");
+        return;
+    }
+
+    QString signUpRequest = "SignUp " + account + '?' + password_1 + '?' + user_name;
+    qDebug() << signUpRequest;
 
     /*===============发送注册请求，处理响应===============*/
     // 1.建立 TCP 连接
     clientSocket->connectToHost(*serverAddr, *serverPort);
     if (clientSocket->waitForConnected(3000)) {  // 最多等待 3 秒
-        // 2.连接成功，准备注册请求
-        QString signUpRequest = "SignUp " + account + '?' + password_1;
 
         if (clientSocket->isOpen() && clientSocket->isValid()) {  // 检查套接字是否连接且有效
             // 3.发送账号和密码给服务器验证
@@ -97,8 +103,6 @@ void SignUp::on_createButton_clicked()
 
     } else {  // 连接失败
         QMessageBox::critical(this, "连接失败", clientSocket->errorString());
-        // 关闭套接字，此时会发送 disconnected 信号
-        clientSocket->close();
         return;
     }
 
