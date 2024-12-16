@@ -8,6 +8,8 @@
 #include <QString>
 #include "signup.h"
 #include "chatroom.h"
+#include "changepwd.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -25,6 +27,10 @@ private slots:
     void on_loginButton_clicked();
 
     void on_signupButton_clicked();
+
+    void on_changePwdBtn_clicked();
+
+    void on_showPwd_stateChanged();
 
 private:
     Ui::Widget *ui;

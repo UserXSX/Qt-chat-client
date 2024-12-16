@@ -1,5 +1,5 @@
-#ifndef SIGNUP_H
-#define SIGNUP_H
+#ifndef CHANGEPWD_H
+#define CHANGEPWD_H
 
 #include <QWidget>
 #include <QMessageBox>
@@ -9,29 +9,29 @@
 #include <QCloseEvent>
 
 namespace Ui {
-class SignUp;
+class ChangePwd;
 }
 
-class SignUp : public QWidget
+class ChangePwd : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit SignUp(QTcpSocket *socket,
-                    QString *addr,
-                    quint16 *port,
-                    QWidget *parent = nullptr);
-    ~SignUp();
+    explicit ChangePwd(QTcpSocket *socket,
+                       QString *addr,
+                       quint16 *port,
+                       QWidget *parent = nullptr);
+    ~ChangePwd();
 
 private slots:
-    void on_createButton_clicked();
-
     void on_returnButton_clicked();
+
+    void on_submitButton_clicked();
 
     void on_showPwd_stateChanged();
 
 private:
-    Ui::SignUp *ui;
+    Ui::ChangePwd *ui;
     QTcpSocket *clientSocket;
     QString *serverAddr;
     quint16 *serverPort;
@@ -39,4 +39,4 @@ private:
     void closeEvent(QCloseEvent *event) override;
 };
 
-#endif // SIGNUP_H
+#endif // CHANGEPWD_H

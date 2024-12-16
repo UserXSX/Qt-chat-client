@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SignUp</class>
- <widget class="QWidget" name="SignUp">
+ <class>ChangePwd</class>
+ <widget class="QWidget" name="ChangePwd">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -30,13 +30,86 @@
     </font>
    </property>
    <property name="text">
-    <string>创建新账户</string>
+    <string>修改密码</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QPushButton" name="createButton">
+  <widget class="QLineEdit" name="inputAccount">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>140</y>
+     <width>300</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>请输入账号</string>
+   </property>
+   <property name="clearButtonEnabled">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="inputOldPwd">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>210</y>
+     <width>300</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
+   </property>
+   <property name="placeholderText">
+    <string>请输入原密码</string>
+   </property>
+   <property name="clearButtonEnabled">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="inputPwd_1">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>280</y>
+     <width>300</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
+   </property>
+   <property name="placeholderText">
+    <string>请输入新密码</string>
+   </property>
+   <property name="clearButtonEnabled">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="inputPwd_2">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>350</y>
+     <width>300</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
+   </property>
+   <property name="placeholderText">
+    <string>请确认新密码</string>
+   </property>
+   <property name="clearButtonEnabled">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="submitButton">
    <property name="geometry">
     <rect>
      <x>260</x>
@@ -56,77 +129,7 @@
 color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>注册</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="inputAccount">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>140</y>
-     <width>300</width>
-     <height>50</height>
-    </rect>
-   </property>
-   <property name="placeholderText">
-    <string>请输入1至16位数字</string>
-   </property>
-   <property name="clearButtonEnabled">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="inputPwd_1">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>210</y>
-     <width>300</width>
-     <height>50</height>
-    </rect>
-   </property>
-   <property name="echoMode">
-    <enum>QLineEdit::Password</enum>
-   </property>
-   <property name="placeholderText">
-    <string>请输入1至16位字母和数字</string>
-   </property>
-   <property name="clearButtonEnabled">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="inputPwd_2">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>280</y>
-     <width>300</width>
-     <height>50</height>
-    </rect>
-   </property>
-   <property name="echoMode">
-    <enum>QLineEdit::Password</enum>
-   </property>
-   <property name="placeholderText">
-    <string>请重复输入以上密码</string>
-   </property>
-   <property name="clearButtonEnabled">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="inputName">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>350</y>
-     <width>300</width>
-     <height>50</height>
-    </rect>
-   </property>
-   <property name="placeholderText">
-    <string>请输入1至16位字母和数字</string>
-   </property>
-   <property name="clearButtonEnabled">
-    <bool>true</bool>
+    <string>提交</string>
    </property>
   </widget>
   <widget class="QCommandLinkButton" name="returnButton">
@@ -170,7 +173,7 @@ color: rgb(255, 255, 255);</string>
     </font>
    </property>
    <property name="text">
-    <string>新账号：</string>
+    <string>账号：</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -192,7 +195,7 @@ color: rgb(255, 255, 255);</string>
     </font>
    </property>
    <property name="text">
-    <string>密码：</string>
+    <string>原密码：</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -214,7 +217,7 @@ color: rgb(255, 255, 255);</string>
     </font>
    </property>
    <property name="text">
-    <string>确认密码：</string>
+    <string>新密码：</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -236,7 +239,7 @@ color: rgb(255, 255, 255);</string>
     </font>
    </property>
    <property name="text">
-    <string>用户名：</string>
+    <string>确认新密码：</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -246,7 +249,7 @@ color: rgb(255, 255, 255);</string>
    <property name="geometry">
     <rect>
      <x>580</x>
-     <y>220</y>
+     <y>290</y>
      <width>150</width>
      <height>30</height>
     </rect>

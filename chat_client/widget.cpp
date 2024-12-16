@@ -13,7 +13,7 @@ Widget::Widget(QWidget *parent)
 
     // 连接准备
     clientSocket = new QTcpSocket(this);
-    serverAddr = new QString("");  // 填写服务器 IP 地址
+    serverAddr = new QString("159.75.88.12");  // 填写服务器 IP 地址
     serverPort = new quint16(8080);  // 填写服务器监听的端口号
 }
 
@@ -55,7 +55,7 @@ void Widget::on_loginButton_clicked()
     // 1.建立 TCP 连接
     clientSocket->connectToHost(*serverAddr, *serverPort);
     if (clientSocket->waitForConnected(3000)) {  // 最多等待 3 秒
-        if (clientSocket->isOpen() && clientSocket->isValid()) {  // 检查套接字是否连接且有效
+        if (clientSocket->isOpen() && clientSocket->isValid()) {  // 检查套接字是否打开且有效
             // 2.发送账号和密码给服务器验证
             clientSocket->write(loginRequest.toUtf8());
         } else {  // 请求发送失败
@@ -103,7 +103,7 @@ void Widget::on_loginButton_clicked()
 }
 
 /*
- * 点击前往注册按钮后，从登录界面跳转至注册界面
+ * 点击注册账号按钮后，从登录界面跳转至注册界面
  */
 void Widget::on_signupButton_clicked()
 {
@@ -113,6 +113,19 @@ void Widget::on_signupButton_clicked()
                                     this);
     signUpForm->show();  // 显示注册窗口
     this->hide();  // 隐藏登录窗口
+}
+
+/*
+ * 点击修改密码按钮后，从登录界面跳转至修改密码界面
+ */
+void Widget::on_changePwdBtn_clicked()
+{
+    ChangePwd *changePwdForm = new ChangePwd(clientSocket,
+                                             serverAddr,
+                                             serverPort,
+                                             this);
+    changePwdForm->show();
+    this->hide();
 }
 
 /*
@@ -139,5 +152,17 @@ void Widget::enter_chatRoom(QString uid, QString name) {
     } else {
         // 否则删除已经创建的聊天室窗口，即留在登录窗口
         delete chatForm;
+    }
+}
+
+/*
+ * 根据复选框是否选中来决定密码的显示方式
+ */
+void Widget::on_showPwd_stateChanged()
+{
+    if (ui->showPwd->checkState() == Qt::Checked) {  // 选中时显示密码明文
+        ui->inputPwd->setEchoMode(QLineEdit::Normal);
+    } else {
+        ui->inputPwd->setEchoMode(QLineEdit::Password);
     }
 }

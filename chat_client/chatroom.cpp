@@ -88,6 +88,7 @@ void ChatRoom::on_logOutButton_clicked()
 void ChatRoom::readMessage() {
     QByteArray recv = clientSocket->readAll();
     QString recv_str = QString::fromUtf8(recv);
+    qDebug() << "buffer: " << recv_str;
 
     // 按照 '\0' 分割字符串，获取每条消息
     QStringList messages = recv_str.split(QChar('\0'), Qt::SkipEmptyParts);
@@ -126,7 +127,7 @@ void ChatRoom::on_sendButton_clicked()
     QString content = ui->textSend->toPlainText();  // 获取输入框中要发送的内容
 
     QString show_str = QDateTime::currentDateTime().toString("dddd yyyy.MM.dd hh:mm:ss") +
-            "\n[" + myID + '#' + myName + "] " + content + '\n';
+            "\n[" + myID + '#' + myName + "] " + content;
 
     QString send_str = "Send " + show_str + '\0';
     qDebug() << send_str;  // 在控制台输出要发送的请求

@@ -40,7 +40,7 @@ Qt聊天室的客户端
 
 ### 6.添加关注对象
 
-客户端向服务器发送形如`Follow [my_id][following_id]`，服务器将记录`(my_id, following_id)`插入到**Following表**中，若插入失败，即**User表**中不存在`[following_id]`（不满足外码约束），则返回`NoUid\0`（账号不存在），消息结尾处添加结束符`'\0'`；如果插入的记录已存在，服务器不返回消息。
+客户端向服务器发送形如`Follow [my_id][following_id]`，服务器将记录`(my_id, following_id)`插入到**Following表**中，若插入失败，即**User表**中不存在`[following_id]`（不满足外码约束），则返回`NoUid \0`（账号不存在），注意`NoUid`后包含空格，消息结尾处添加结束符`'\0'`；如果插入的记录已存在，服务器不返回消息。
 
 ### 7.显示用户关注列表中的在线用户
 
