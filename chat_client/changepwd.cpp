@@ -103,13 +103,8 @@ void ChangePwd::on_submitButton_clicked()
             if (res_str == "Pass") {  // 修改成功
                 // 修改成功，跳转至登录界面
                 QMessageBox::information(this, "修改成功", "点击按钮返回至登录界面");
-                QWidget *logInWindow = this->parentWidget();  // 获取父窗口
-                if (logInWindow) {
-                    logInWindow->show();  // 显示登录窗口
-                }
                 clientSocket->close();
                 this->close();  // 关闭注册窗口
-                delete this;  // 手动删除注册窗口以释放内存
             } else if (res_str == "NoUid") {  // 账号不存在
                 QMessageBox::warning(this, "修改失败", "账号不存在");
                 clientSocket->close();

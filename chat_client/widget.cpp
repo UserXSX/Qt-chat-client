@@ -13,7 +13,7 @@ Widget::Widget(QWidget *parent)
 
     // 连接准备
     clientSocket = new QTcpSocket(this);
-    serverAddr = new QString("");  // 填写服务器 IP 地址
+    serverAddr = new QString("159.75.88.12");  // 填写服务器 IP 地址
     serverPort = new quint16(8080);  // 填写服务器监听的端口号
 }
 
