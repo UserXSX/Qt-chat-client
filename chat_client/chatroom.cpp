@@ -114,8 +114,8 @@ void ChatRoom::readMessage() {
             QString content = str.section(' ', 1, -1);
             // 将这些在线用户显示到窗口中
             show_online_following(content);
-        } else if (keyword == "NoUid") {  // 用户想要关注的账号不存在
-            QMessageBox::warning(this, "关注失败", "该账号不存在");
+        } else if (keyword == "NoUid") {  // 用户已关注想要关注的账号或该账号不存在
+            QMessageBox::warning(this, "关注失败", "已关注或该账号不存在");
         }
     }
 }

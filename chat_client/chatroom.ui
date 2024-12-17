@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1500</width>
+    <width>1170</width>
     <height>900</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1170</width>
+    <height>900</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1170</width>
+    <height>900</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Chat online</string>
@@ -68,22 +80,6 @@ color: rgb(255, 255, 255);</string>
     <font>
      <pointsize>11</pointsize>
     </font>
-   </property>
-  </widget>
-  <widget class="QLabel" name="onlineNum">
-   <property name="geometry">
-    <rect>
-     <x>1200</x>
-     <y>40</y>
-     <width>150</width>
-     <height>50</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>* / *</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QPushButton" name="sendButton">
