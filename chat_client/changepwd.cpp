@@ -28,8 +28,8 @@ ChangePwd::~ChangePwd()
     delete ui;
 }
 
-/*
- * 在修改密码界面点击登录按钮，返回至登录界面
+/**
+ * @brief 在修改密码界面点击登录按钮，返回至登录界面
  */
 void ChangePwd::on_returnButton_clicked()
 {
@@ -46,8 +46,8 @@ void ChangePwd::closeEvent(QCloseEvent *event) {
     delete this;  // 手动删除修改密码窗口以释放内存
 }
 
-/*
- * 点击提交按钮后，将修改密码所需的信息发送给服务器
+/**
+ * @brief 点击提交按钮后，将修改密码所需的信息发送给服务器
  */
 void ChangePwd::on_submitButton_clicked()
 {

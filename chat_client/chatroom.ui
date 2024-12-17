@@ -16,11 +16,22 @@
   <widget class="QPushButton" name="logOutButton">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>50</x>
      <y>30</y>
      <width>120</width>
      <height>50</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(0, 0, 0);
+border-color: rgb(255, 255, 255);
+color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string>下线</string>
@@ -29,30 +40,33 @@
   <widget class="QPlainTextEdit" name="textSend">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>580</y>
+     <x>370</x>
+     <y>589</y>
      <width>750</width>
-     <height>200</height>
+     <height>191</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <pointsize>11</pointsize>
     </font>
+   </property>
+   <property name="placeholderText">
+    <string>请输入要发送的文本</string>
    </property>
   </widget>
   <widget class="QTextBrowser" name="textReceive">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>90</y>
+     <x>370</x>
+     <y>109</y>
      <width>750</width>
-     <height>450</height>
+     <height>461</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <pointsize>11</pointsize>
     </font>
    </property>
   </widget>
@@ -75,7 +89,7 @@
   <widget class="QPushButton" name="sendButton">
    <property name="geometry">
     <rect>
-     <x>1000</x>
+     <x>1020</x>
      <y>810</y>
      <width>100</width>
      <height>50</height>
@@ -98,9 +112,35 @@ color: rgb(255, 255, 255);</string>
   <widget class="QLabel" name="userName">
    <property name="geometry">
     <rect>
-     <x>170</x>
+     <x>190</x>
      <y>30</y>
-     <width>120</width>
+     <width>300</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(0, 0, 0);</string>
+   </property>
+   <property name="text">
+    <string>用户名：Unknown</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="followButton">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>700</y>
+     <width>300</width>
      <height>50</height>
     </rect>
    </property>
@@ -111,13 +151,106 @@ color: rgb(255, 255, 255);</string>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(46, 103, 211);</string>
+    <string notr="true">background-color: rgb(46, 103, 211);
+color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string>关注</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="inputFollowID">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>630</y>
+     <width>300</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>请输入要关注的用户账号</string>
+   </property>
+   <property name="clearButtonEnabled">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="followingList">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>169</y>
+     <width>300</width>
+     <height>340</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>110</y>
+     <width>300</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>关注列表（在线）</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="unfollowButton">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>520</y>
+     <width>160</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>取消关注</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="refreshButton">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>520</y>
+     <width>120</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>刷新</string>
    </property>
   </widget>
  </widget>

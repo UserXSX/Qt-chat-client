@@ -25,8 +25,8 @@ SignUp::~SignUp()
     delete ui;
 }
 
-/*
- * 点击 注册 按钮后，将注册账号所需的信息发送给服务器
+/**
+ * @brief 点击注册按钮后，将注册账号所需的信息发送给服务器
  */
 void SignUp::on_createButton_clicked()
 {
@@ -108,8 +108,8 @@ void SignUp::on_createButton_clicked()
 
 }
 
-/*
- * 在注册界面点击登录按钮，返回至登录界面
+/**
+ * @brief 在注册界面点击登录按钮，返回至登录界面
  */
 void SignUp::on_returnButton_clicked()
 {

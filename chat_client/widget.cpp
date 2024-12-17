@@ -13,7 +13,7 @@ Widget::Widget(QWidget *parent)
 
     // 连接准备
     clientSocket = new QTcpSocket(this);
-    serverAddr = new QString("159.75.88.12");  // 填写服务器 IP 地址
+    serverAddr = new QString("");  // 填写服务器 IP 地址
     serverPort = new quint16(8080);  // 填写服务器监听的端口号
 }
 
@@ -25,8 +25,8 @@ Widget::~Widget()
     delete serverPort;
 }
 
-/*
- * 点击 登录 按钮后的事件
+/**
+ * @brief 点击登录按钮后，将登录请求发送给服务器验证
  */
 void Widget::on_loginButton_clicked()
 {
@@ -47,7 +47,7 @@ void Widget::on_loginButton_clicked()
     qDebug() << loginRequest;
 
     // ==>跳过服务器登录验证，测试跳转聊天室窗口效果
-//    enter_chatRoom(account, "unknown");
+//    enter_chatRoom(account, "Unknown");
 //    return;
     // ==>测试代码结束
 
@@ -102,8 +102,8 @@ void Widget::on_loginButton_clicked()
     }
 }
 
-/*
- * 点击注册账号按钮后，从登录界面跳转至注册界面
+/**
+ * @brief 点击注册账号按钮后，从登录界面跳转至注册界面
  */
 void Widget::on_signupButton_clicked()
 {
@@ -115,8 +115,8 @@ void Widget::on_signupButton_clicked()
     this->hide();  // 隐藏登录窗口
 }
 
-/*
- * 点击修改密码按钮后，从登录界面跳转至修改密码界面
+/**
+ * @brief 点击修改密码按钮后，从登录界面跳转至修改密码界面
  */
 void Widget::on_changePwdBtn_clicked()
 {
@@ -128,8 +128,10 @@ void Widget::on_changePwdBtn_clicked()
     this->hide();
 }
 
-/*
- * 从登录界面跳转至聊天室界面
+/**
+ * @brief 从登录界面跳转至聊天室界面
+ * @param uid 当前登录的用户账号
+ * @param name 当前登录的用户名
  */
 void Widget::enter_chatRoom(QString uid, QString name) {
     ChatRoom *chatForm = new ChatRoom(clientSocket,
@@ -155,8 +157,8 @@ void Widget::enter_chatRoom(QString uid, QString name) {
     }
 }
 
-/*
- * 根据复选框是否选中来决定密码的显示方式
+/**
+ * @brief 根据“显示密码”复选框是否选中来决定密码的显示方式
  */
 void Widget::on_showPwd_stateChanged()
 {

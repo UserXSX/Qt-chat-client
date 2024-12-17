@@ -40,11 +40,11 @@ Qt聊天室的客户端
 
 ### 6.显示用户关注列表中的在线用户
 
-客户端向服务器发送形如`FollowingOnline [my_id]`，服务器通过**User表**和**Following表**查找该用户关注的对象中，在线对象的`uid`和`name`，返回的消息形如`FollowingOnline [uid_1]#[name_1] [uid_2]#[name_2]\0`，其中`[uid_1]#[name_1]`为用字符`'#'`分隔的一个关注对象的`uid`和`name`，每个关注对象之间用`空格`分隔，消息结尾处添加结束符`'\0'`。
+客户端向服务器发送形如`FollowingOnline [my_id]`，服务器通过**User表**和**Following表**查找该用户关注的对象中，在线对象的`uid`和`name`，返回的消息形如`FollowingOnline [uid_1]#[name_1] [uid_2]#[name_2]%`，其中`[uid_1]#[name_1]`为用字符`'#'`分隔的一个关注对象的`uid`和`name`，每个关注对象之间用`空格`分隔，消息结尾处添加结束符`'%'`；当用户的关注列表为空时，服务器返回`"FollowingOnline Empty"`。
 
 ### 7.添加关注对象
 
-客户端向服务器发送形如`Follow [my_id]?[following_id]`，服务器将记录`(my_id, following_id)`插入到**Following表**中，若插入失败，即**User表**中不存在`[following_id]`（不满足外码约束），则返回`NoUid \0`（账号不存在），注意`NoUid`后包含空格，消息结尾处添加结束符`'\0'`；如果插入的记录已存在，服务器不返回消息。
+客户端向服务器发送形如`Follow [my_id]?[following_id]`，服务器将记录`(my_id, following_id)`插入到**Following表**中，若插入失败，即**User表**中不存在`[following_id]`（不满足外码约束），则返回`NoUid %`（账号不存在），注意`NoUid`后包含空格，消息结尾处添加结束符`'%'`；如果插入的记录已存在，服务器不返回消息。
 
 ### 8.取消关注
 
