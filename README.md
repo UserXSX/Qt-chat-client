@@ -50,7 +50,7 @@ Qt聊天室的客户端
 
 ### 8.取消关注
 
-客户端向服务器发送形如`Unfollow [my_id][following_id]`，服务器将记录`(my_id, following_id)`从**Following表**中删除。如果要删除的记录不存在，服务器不返回消息。
+客户端向服务器发送形如`Unfollow [my_id][following_id]`，服务器将记录`(my_id, following_id)`从**Following表**中删除。~~如果要删除的记录不存在，服务器不返回消息~~（在不考虑多设备登录的情况下，客户端可以确保这条记录存在）。
 
 ### 显示聊天室中的在线人数
 
